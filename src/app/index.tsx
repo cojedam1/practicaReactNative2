@@ -93,3 +93,75 @@ export default function App() {
       ],
     );
   }
+
+  // FUNCIÓN QUE DIBUJA CADA ELEMENTO DE LA LISTA
+  // FlatList llama a esta función una vez por cada tarea en "tasks".
+  // "item" es una de las tareas del arreglo.
+  function renderTask({ item }: { item: Task }) {
+    return (
+      <View style={styles.taskRow} >
+        {/* Mostramos el texto de la tarea. flex:1 hace que ocupe
+            todo el espacio posible antes del botón. */}
+        < Text style={styles.taskText} > {item.text} </Text>
+
+        {/* Botón eliminar: le pasamos el id de esta tarea */}
+        <Button
+          title="Eliminar"
+          color="#d9534f"
+          onPress={() => handleEliminar(item.id)
+          }
+        />
+      </View>
+    );
+  }
+
+
+  // LO QUE SE DIBUJA EN PANTALLA
+  return (
+    // SafeAreaView asegura que el contenido no quede debajo de la cámara del celular.
+    <SafeAreaView style={styles.container} >
+      {/*el contenedor principal es un ScrollView */}
+      < ScrollView contentContainerStyle={styles.scrollContent} >
+        <Text style={styles.title}> Lista de tareas </Text>
+
+        {/*botón que muestra el TextInput */}
+        <Button title="Nueva tarea" onPress={handleNuevaTarea} />
+
+        {/* El TextInput solo se muestra si isAdding es true.
+            "isAdding && (...)" es una forma corta de decir:
+            "si isAdding es verdadero, muestra lo que sigue". */}
+        {
+          isAdding && (
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Escribe la tarea..."
+                value={newTaskText}
+                // Cada vez que el usuario escribe, actualizamos el estado
+                onChangeText={setNewTaskText}
+              />
+              {/*botón que guarda la tarea */}
+              < Button title="Guardar" onPress={handleGuardar} />
+            </View>
+          )
+        }
+
+        {/*Lista de tareas con FlatList.
+            - data: el arreglo que queremos mostrar
+            - renderItem: la función que dibuja cada elemento
+            - keyExtractor: le dice a React cómo identificar cada elemento
+            - scrollEnabled={false}: dejamos que el ScrollView de afuera
+              controle el scroll, para no tener dos scrolls anidados */}
+        <FlatList
+          data={tasks}
+          renderItem={renderTask}
+          keyExtractor={(item) => item.id}
+          scrollEnabled={false}
+          ListEmptyComponent={
+            < Text style={styles.emptyText} > Aún no hay tareas.</Text>
+          }
+        />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
