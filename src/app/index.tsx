@@ -165,3 +165,49 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+// StyleSheet.create simplemente organiza los estilos en un objeto,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Ocupa toda la pantalla
+    backgroundColor: '#ffffff',
+  },
+  scrollContent: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    borderRadius: 6,
+    padding: 10,
+    marginBottom: 8,
+  },
+  taskRow: {
+    flexDirection: 'row', // Pone el texto y el botón en la misma fila
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eeeeee',
+  },
+  taskText: {
+    flex: 1, // El texto ocupa todo el espacio antes del botón
+    fontSize: 16,
+    marginRight: 8,
+  },
+  emptyText: {
+    textAlign: 'center',
+    color: '#999999',
+    marginTop: 20,
+  },
+});
